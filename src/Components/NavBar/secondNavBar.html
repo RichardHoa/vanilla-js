@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      second-nav-bar {
+        background-color: var(--highlight);
+        padding: 15px;
+        display: flex;
+        justify-content: flex-end; /* Align links to the right */
+        gap: 15px; /* Space between links */
+      }
+
+      second-nav-bar a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 10px;
+        transition: color 0.3s, background 0.3s;
+      }
+
+      second-nav-bar a:hover {
+        background-color: var(--secondaryColor);
+        color: var(--primaryColor);
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+      <a href="/">Main page</a>
+      <a href="/second">Second page</a>
+      <a href="/third">Third page</a>
+  </body>
+</html>

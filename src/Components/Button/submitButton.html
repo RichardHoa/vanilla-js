@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      button {
+        background-color: var(--primaryColor);
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+        transition: linear 0.25s;
+      }
+
+      button:hover {
+        background-color: var(--secondaryColor);
+      }
+
+      button:disabled {
+        background-color: var(--disabled);
+        cursor: not-allowed;
+        transition: linear 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <button type="submit"></button>
+  </body>
+</html>

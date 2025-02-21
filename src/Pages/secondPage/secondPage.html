@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      main {
+        background-color: var(--background-surface);
+        line-height: 1.6;
+        text-align: center;
+        padding: 20px;
+      }
+
+      header {
+        background-color: var(--primaryColor);
+        padding: 30px;
+      }
+
+      section {
+        background: var(--highlight);
+        padding: 20px;
+        margin: 20px auto;
+        width: 80%;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2 {
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin-bottom: 15px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      ul li {
+        background: var(--secondaryColor);
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      blockquote {
+        font-style: italic;
+        background: var(--secondaryColor);
+        padding: 15px;
+        border-left: 5px solid var(--primaryColor);
+        margin: 10px auto;
+        width: 60%;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin: auto;
+      }
+
+      label {
+        text-align: left;
+        margin: 10px 0 5px;
+      }
+
+      input:not([type="color"]),
+      textarea {
+        border: 1px solid var(--secondaryColor);
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      textarea {
+        height: 100px;
+      }
+
+    </style>
+    <script type="module" src="/src/Pages/secondPage/secondPage.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>This is a controlled form</h1>
+      <p>We use proxy to achieve this control form</p>
+      <p>Also this page has a different navbar</p>
+    </header>
+
+    <section>
+      <h2>Controlled form</h2>
+      <form>
+        <label for="name">Your Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          autocomplete="off"
+          autofocus
+          required
+          />
+          <label for="email">Your Email</label>
+          <input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="off"
+          multiple
+          required
+        />
+
+        <label for="filmQuestion">Choose a film:</label>
+        <input list="film" id="filmQuestion" name="film" />
+        <datalist id="film">
+          <option value="Inception"></option>
+          <option value="Parasite"></option>
+          <option value="The Shawshank Redemption"></option>
+          <option value="Interstellar"></option>
+          <option value="The Dark Knight"></option>
+          <option value="Forrest Gump"></option>
+          <option value="The Matrix"></option>
+          <option value="Pulp Fiction"></option>
+          <option value="The Godfather"></option>
+          >
+        </datalist>
+
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" />
+        <label for="birthdayTime">Birthday (date and time):</label>
+        <input type="datetime-local" id="birthdayTime" name="birthdayTime" />
+
+        <label for="color">Select your favorite color:</label>
+        <input type="color" id="color" name="color" />
+
+        <input type="hidden" id="secretValue" name="secretValue" value="This is a secret value that user won't see" />
+
+        <label for="quantity">Quantity (between 10 and 500):</label>
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          min="0"
+          max="500"
+          step="10"
+        />
+
+        <label for="vol">Volume (between 0 and 100):</label>
+        <input type="range" id="vol" name="volume" min="0" max="100" value="50" />
+
+        <!-- <button type="submit" >Send Message</button> -->
+        <submit-button>Submit right now</submit-button>
+        <p>Open console.log to see the data</p>
+      </form>
+    </section>
+  </body>
+</html>

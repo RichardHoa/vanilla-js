@@ -1,0 +1,40 @@
+{
+    "heading": "Welcome to the Future of Web Design",
+    "subheading": "A seamless blend of aesthetics and functionality",
+    "heroImage": "https://thefusioneer.com/wp-content/uploads/2023/11/5-AI-Advancements-to-Expect-in-the-Next-10-Years-scaled.jpeg",
+    "body": "Discover a world where design meets innovation. Our platform is built to deliver stunning web experiences with effortless customization.",
+    "features": [
+      {
+        "icon": "🚀",
+        "title": "Lightning-Fast Performance",
+        "description": "Optimized for speed and efficiency, ensuring a seamless browsing experience."
+      },
+      {
+        "icon": "🎨",
+        "title": "Beautiful & Customizable",
+        "description": "Choose from a range of stunning templates and tweak them to fit your brand."
+      },
+      {
+        "icon": "🔒",
+        "title": "Secure & Reliable",
+        "description": "Built with the latest security features to keep your data safe."
+      }
+    ],
+    "testimonials": [
+      {
+        "name": "John Doe",
+        "avatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "quote": "This platform transformed the way I build websites! It's fast, flexible, and stunning."
+      },
+      {
+        "name": "Jane Smith",
+        "avatar": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "quote": "I love how intuitive the design process is. The customization options are incredible!"
+      }
+    ],
+    "cta": {
+      "text": "Get Started Today",
+      "link": "/second"
+    }
+  }
+  

@@ -1,0 +1,59 @@
+:root {
+  --background-surface: light-dark(#efefef, #2d0909c9);
+  --primaryColor: light-dark(#b7b1f2, #460707);
+  --secondaryColor: light-dark(#fdb7ea, #ae1e1e);
+  --highlight: light-dark(#fbf2c6, #6b2908);
+  --disabled: light-dark(#f2f2f2, #3a3a3a);
+  color-scheme: light dark;
+  color: light-dark(black, white);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+}
+
+/* input:invalid {
+  background-color: lightpink;
+} */
+
+#fade {
+  position: fixed;
+  z-index: 999;
+  bottom: 2rem;
+  right: 1rem;
+  width: 50px;  /* Size of the icon */
+  height: 50px;
+  display: none; /* Initially hidden */
+  cursor: pointer;
+  
+  /* Centering the image inside a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Circle with dynamic color */
+  background-color: var(--highlight);
+  border-radius: 50%; /* Makes it a circle */
+  transition: background-color 0.3s ease-in-out;
+}
+
+#fade img {
+  width: 100%; /* Make the image slightly smaller than the circle */
+  height: 100%;
+  filter: light-dark(invert(0), invert(1)); /* Switch colors */
+}
+
