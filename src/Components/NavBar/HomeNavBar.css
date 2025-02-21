@@ -1,0 +1,21 @@
+nav {
+    background-color: var(--primaryColor);
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end; /* Align links to the right */
+    gap: 15px; /* Space between links */
+}
+
+nav > a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    transition: color 0.3s, background 0.3s;
+}
+
+nav > a:hover {
+    background-color: var(--highlight);
+    color: var(--secondaryColor);
+    border-radius: 5px;
+}

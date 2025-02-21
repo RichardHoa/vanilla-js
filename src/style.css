@@ -1,0 +1,12 @@
+:root {
+  --background-surface: #efefef;
+  --primaryColor: #b7b1f2;
+  --secondaryColor: #fdb7ea;
+  --highlight: #fbf2c6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
