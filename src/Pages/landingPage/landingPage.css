@@ -12,7 +12,7 @@ header {
 }
 
 section {
-  background: white;
+  background: var(--highlight);
   padding: 20px;
   margin: 20px auto;
   width: 80%;

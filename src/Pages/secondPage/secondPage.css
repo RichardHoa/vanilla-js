@@ -7,12 +7,11 @@ main {
 
 header {
   background-color: var(--primaryColor);
-  color: white;
   padding: 30px;
 }
 
 section {
-  background: white;
+  background: var(--highlight);
   padding: 20px;
   margin: 20px auto;
   width: 80%;
@@ -62,11 +61,11 @@ label {
   margin: 10px 0 5px;
 }
 
-input,
+input:not([type="color"]),
 textarea {
-  padding: 8px;
   border: 1px solid var(--secondaryColor);
   border-radius: 5px;
+  padding:5px;
 }
 
 textarea {
