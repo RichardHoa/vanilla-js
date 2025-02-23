@@ -1,8 +1,4 @@
-import {
-  loadCSS,
-  loadHTML,
-  loadHTMLAndCSS,
-} from "../../Services/helperFunctions";
+import { loadHTMLAndCSS } from "../../Services/helperFunctions";
 
 export default class SecondPage extends HTMLElement {
   #user = {

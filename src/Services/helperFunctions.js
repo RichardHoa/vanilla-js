@@ -36,58 +36,16 @@ export function loadCSS(path) {
 }
 
 /**
- * Helper function to load an HTML file into the DOM
- *
+ * Helper function to load an HTML file into a DOMNode and CSS into the head
  * @param {string} path
- * @param {object} contentObj
- *
+ * @param {HTMLElement} DOMNode
  */
-export async function loadHTML(path, contentObj) {
-  // Fetch the HTML content
-  const response = await fetch(path);
-  const content = await response.text();
-  if (content) {
-    contentObj.content = content;
-  } else {
-    console.error("Failed to load HTML content from", path);
-  }
-}
-
 export function loadHTMLAndCSS(path, DOMNode) {
-  let contentObj = { content: "" };
-
-  return fetch(path)
+  return fetch(path, { cache: "force-cache" })
     .then((response) => response.text())
     .then((content) => {
       if (content) {
-        // Create a DocumentFragment directly
-        const fragment = document.createDocumentFragment();
-
-        // Create a temporary container to parse the HTML
-        const tempContainer = document.createElement("div");
-        tempContainer.innerHTML = content;
-
-        const headContent = tempContainer.querySelector("style").innerHTML;
-        if (headContent) {
-          DOMNode.styleElement = document.createElement("style");
-          DOMNode.styleElement.innerHTML = headContent;
-          document.head.appendChild(DOMNode.styleElement);
-        }
-
-        tempContainer.innerHTML = content;
-
-        // Remove <style> and <script> tags before appending
-        tempContainer
-          .querySelectorAll("style, script")
-          .forEach((tag) => tag.remove());
-
-        // Move all child nodes from tempContainer to fragment
-        while (tempContainer.firstChild) {
-          fragment.appendChild(tempContainer.firstChild);
-        }
-
-        // Append the fragment to the target DOMNode
-        DOMNode.appendChild(fragment);
+        renderHTML(content, DOMNode);
       } else {
         console.error("Failed to load HTML content from", path);
       }
@@ -95,4 +53,31 @@ export function loadHTMLAndCSS(path, DOMNode) {
     .catch((error) => {
       console.error("Error fetching HTML content:", error);
     });
+}
+
+function renderHTML(content, DOMNode) {
+  // Create a DocumentFragment
+  const fragment = document.createDocumentFragment();
+  const tempContainer = document.createElement("div");
+  tempContainer.innerHTML = content;
+
+  // Extract and apply CSS
+  const styleTag = tempContainer.querySelector("style");
+  if (styleTag) {
+    DOMNode.styleElement = document.createElement("style");
+    DOMNode.styleElement.innerHTML = styleTag.innerHTML;
+    document.head.appendChild(DOMNode.styleElement);
+    styleTag.remove(); // Remove style tag from fragment
+  }
+
+  // Remove <script> tags
+  tempContainer.querySelectorAll("script").forEach((tag) => tag.remove());
+
+  // Move child nodes to fragment
+  while (tempContainer.firstChild) {
+    fragment.appendChild(tempContainer.firstChild);
+  }
+
+  // Append the fragment to the target DOMNode
+  DOMNode.appendChild(fragment);
 }

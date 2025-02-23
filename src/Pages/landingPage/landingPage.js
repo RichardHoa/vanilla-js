@@ -1,4 +1,4 @@
-import { loadCSS, loadHTMLAndCSS } from "../../Services/helperFunctions";
+import {  loadHTMLAndCSS } from "../../Services/helperFunctions";
 
 export default class LandingPage extends HTMLElement {
   constructor() {

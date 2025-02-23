@@ -10,12 +10,13 @@ const Router = {
   },
 
   go(route, addToHistory = true) {
-    console.log("Navigating to", route);
+    console.log("Navigating to: ", route);
     if (addToHistory) {
       history.pushState({ route }, null, route);
     }
 
     let navbarElement = document.getElementById("navbar");
+
     let pageElement = null;
     let navElement = null;
 
@@ -38,7 +39,11 @@ const Router = {
       app.removeChild(app.firstChild);
     }
 
-    navbarElement.appendChild(navElement.cloneNode(true)); // Append the entire navElement
+    while (navbarElement.firstChild) {
+      navbarElement.removeChild(navbarElement.firstChild);
+    }
+    // Add the new navbar
+    navbarElement.appendChild(navElement.cloneNode(true));
 
     if (pageElement) {
       // app.appendChild(navElement);
