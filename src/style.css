@@ -3,6 +3,7 @@
   --primaryColor: light-dark(#b7b1f2, #460707);
   --secondaryColor: light-dark(#fdb7ea, #ae1e1e);
   --highlight: light-dark(#fbf2c6, #6b2908);
+  --disabled: light-dark(#f2f2f2, #3a3a3a);
   color-scheme: light dark;
   color: light-dark(black, white);
 }

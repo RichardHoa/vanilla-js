@@ -1,7 +1,3 @@
-import initHomeNavBar from "../Components/NavBar/HomeNavBar";
-import initSecondNavBar from "../Components/NavBar/SecondNavBar";
-import { loadCSS } from "../Services/helperFunctions";
-
 const Router = {
   init() {
     console.log("Router initialized");
@@ -18,15 +14,17 @@ const Router = {
     if (addToHistory) {
       history.pushState({ route }, null, route);
     }
+
+    let navbarElement = document.getElementById("navbar");
     let pageElement = null;
+    let navElement = null;
 
     const routeConfig = routes[route];
     if (routeConfig) {
-      // Load all CSS files for the route
-      routeConfig.css.forEach(loadCSS);
-
       // Create the page element
-      pageElement = routeConfig.init();
+      const routeObj = routeConfig.init();
+      pageElement = routeObj.pageElement;
+      navElement = routeObj.navElement.cloneNode(true);
     } else {
       // Default 404 page
       const element = document.createElement("h1");
@@ -40,7 +38,10 @@ const Router = {
       app.removeChild(app.firstChild);
     }
 
+    navbarElement.appendChild(navElement.cloneNode(true)); // Append the entire navElement
+
     if (pageElement) {
+      // app.appendChild(navElement);
       app.appendChild(pageElement);
       // Set the scroll to 0
       window.scrollTo(0, 0);
@@ -48,28 +49,19 @@ const Router = {
   },
 };
 
-let navbarElement = document.getElementById("navbar");
 const routes = {
   "/": {
-    css: [
-      "/src/Components/NavBar/HomeNavBar.css",
-      "/src/Pages/landingPage/landingPage.css",
-    ],
     init: () => {
-      initHomeNavBar(navbarElement);
-      const element = document.createElement("landing-page");
-      return element;
+      const navElement = document.createElement("home-nav-bar");
+      const pageElement = document.createElement("landing-page");
+      return { navElement: navElement, pageElement: pageElement };
     },
   },
   "/second": {
-    css: [
-      "/src/Components/NavBar/SecondNavBar.css",
-      "/src/Pages/secondPage/secondPage.css",
-    ],
     init: () => {
-      initSecondNavBar(navbarElement);
-      const element = document.createElement("second-page");
-      return element;
+      const navElement = document.createElement("second-nav-bar");
+      const pageElement = document.createElement("second-page");
+      return { navElement: navElement, pageElement: pageElement };
     },
   },
 };
