@@ -14,9 +14,38 @@
   box-sizing: border-box;
 }
 
-
-
-
-input:invalid {
-  background-color: lightpink;
+body {
+  position: relative;
 }
+
+/* input:invalid {
+  background-color: lightpink;
+} */
+
+#fade {
+  position: fixed;
+  z-index: 999;
+  bottom: 2rem;
+  right: 1rem;
+  width: 50px;  /* Size of the icon */
+  height: 50px;
+  display: none; /* Initially hidden */
+  cursor: pointer;
+  
+  /* Centering the image inside a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Circle with dynamic color */
+  background-color: var(--highlight);
+  border-radius: 50%; /* Makes it a circle */
+  transition: background-color 0.3s ease-in-out;
+}
+
+#fade img {
+  width: 100%; /* Make the image slightly smaller than the circle */
+  height: 100%;
+  filter: light-dark(invert(0), invert(1)); /* Switch colors */
+}
+

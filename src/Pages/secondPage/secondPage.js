@@ -3,17 +3,15 @@ import { loadHTMLAndCSS } from "../../Services/helperFunctions";
 export default class SecondPage extends HTMLElement {
   #user = {
     name: "",
-    birthday: "",
-    birthdaytime: "",
-    color: "",
-    message: "",
-    custId: "",
-    bdayMonth: "",
-    quantity: "",
-    vol: "",
-    phone: "",
     email: "",
-    browsers: "",
+    film: "",
+    birthday:"",
+    birthdayTime:"",
+    color:"",
+    secretValue:"",
+    quantity:"",
+    volume:"",
+
   };
 
   constructor() {
@@ -37,7 +35,7 @@ export default class SecondPage extends HTMLElement {
     form.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      this.#user.color = "#ff0000";
+     
       console.log("Form submitted", this.#user);
     });
 

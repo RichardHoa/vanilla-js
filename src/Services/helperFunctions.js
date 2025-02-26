@@ -41,7 +41,9 @@ export function loadCSS(path) {
  * @param {HTMLElement} DOMNode
  */
 export function loadHTMLAndCSS(path, DOMNode) {
-  return fetch(path, { cache: "force-cache" })
+  // { cache: "force-cache" }
+  // We turn off cache control to see the changes in html pages
+  return fetch(path)
     .then((response) => response.text())
     .then((content) => {
       if (content) {
