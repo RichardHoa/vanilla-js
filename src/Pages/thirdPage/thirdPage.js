@@ -74,6 +74,11 @@ export default class ThirdPage extends HTMLElement {
     const ctaButton = this.querySelector("#cta-button");
     ctaButton.innerHTML = data.cta.text;
     ctaButton.href = data.cta.link;
+    ctaButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      app.router.go(ctaButton.getAttribute("href"));
+    });
+    // make all the a do SPA
   }
 }
 
