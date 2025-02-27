@@ -81,6 +81,12 @@ const routes = {
       return { navElement: navElement, pageElement: pageElement };
     },
   },
+  "/third": {
+    init: () => {
+      const pageElement = document.createElement("third-page");
+      return { navElement: null, pageElement: pageElement };
+    },
+  },
 };
 
 export default Router;

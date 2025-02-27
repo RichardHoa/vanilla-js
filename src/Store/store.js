@@ -1,4 +1,3 @@
-// NO date to store right now
 const Store = {
   data: null,
 };
@@ -6,9 +5,8 @@ const Store = {
 const proxiedStore = new Proxy(Store, {
   set(target, key, value) {
     target[key] = value;
-    // Example reactive update
-    if (key === "cart") {
-      window.dispatchEvent(new Event("cart-update"));
+    if (key === "data") {
+      window.dispatchEvent(new Event("data-update"));
     }
     return true;
   },
