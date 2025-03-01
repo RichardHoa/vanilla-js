@@ -9,6 +9,8 @@ import LandingPage from "./Pages/landingPage/landingPage.js";
 import SecondPage from "./Pages/secondPage/secondPage.js";
 import ThirdPage from "./Pages/thirdPage/thirdPage.js";
 import SubmitButton from "./Components/Button/submitButton.js";
+import LoginPage from "./Pages/ProtectedRoute/Login/login.js";
+import FourthPage from "./Pages/ProtectedRoute/fourthPage/fourthPage.js";
 
 window.app = {
   store: proxiedStore,
@@ -17,6 +19,9 @@ window.app = {
 
 window.addEventListener("DOMContentLoaded", () => {
   window.app.router.init();
+
+
+
 
   // Configure when the fade appear
   // Show when scrolled pass the limit

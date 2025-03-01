@@ -1,5 +1,7 @@
 const API = {
   dataURL: "/Data/thirdPage.json",
+  loginDataURL:"/Data/loginInfo.json",
+  privateDataURL:"/Data/protectedData.json",
   fetchThirdPage: async () => {
     let json = null;
     try {
@@ -9,8 +11,30 @@ const API = {
       console.error("Error while getting the third page: ", error);
     }
 
-    // Wait 2 seconds for stimulation
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // Wait seconds for stimulation
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return json;
+  },
+  fetchLoginData: async () => {
+    let json = null;
+    try {
+      const result = await fetch(API.loginDataURL);
+      json = await result.json();
+    } catch (error) {
+      console.error("Error while getting the third page: ", error);
+    }
+
+    return json;
+  },
+  fetchPrivateData: async () => {
+    let json = null;
+    try {
+      const result = await fetch(API.privateDataURL);
+      json = await result.json();
+    } catch (error) {
+      console.error("Error while getting the third page: ", error);
+    }
 
     return json;
   },

@@ -1,13 +1,13 @@
 const Store = {
   data: null,
+  accessToken: null,
 };
 
 const proxiedStore = new Proxy(Store, {
   set(target, key, value) {
     target[key] = value;
-    if (key === "data") {
-      window.dispatchEvent(new Event("data-update"));
-    }
+    console.log("key: " + key);
+    window.dispatchEvent(new Event(`${key}-update`));
     return true;
   },
 });

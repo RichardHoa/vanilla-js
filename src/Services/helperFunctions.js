@@ -1,53 +1,16 @@
 /**
- * Helper function to load a CSS file into the DOM
- *
- * @param {string} path
- *
- */
-export function loadCSS(path) {
-  console.log("Loading CSS: ", path);
-  // Check if the stylesheet is already loaded to prevent duplicates
-  if (document.querySelector(`link[href="${path}"]`)) return;
-
-  // Remove all stylesheets except the main "styles.css" and the NavBar CSS
-  document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
-    if (
-      !link.href.includes("styles.css") &&
-      !link.href.includes("NavBar.css")
-    ) {
-      link.remove();
-    }
-  });
-
-  // Remove the other NavBar CSS
-  if (path.includes("NavBar.css")) {
-    document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
-      if (link.href.includes("NavBar.css")) {
-        link.remove();
-      }
-    });
-  }
-
-  // Create and append the new stylesheet
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = path;
-  document.head.appendChild(link);
-}
-
-/**
  * Helper function to load an HTML file into a DOMNode and CSS into the head
  * @param {string} path
- * @param {HTMLElement} DOMNode
+ * @param {Object} context - The object (usually a custom element) that holds the private state.
  */
-export function loadHTMLAndCSS(path, DOMNode) {
+export function loadHTMLAndCSS(path, context) {
   // { cache: "force-cache" }
   // We turn off cache control to see the changes in html pages
   return fetch(path)
     .then((response) => response.text())
     .then((content) => {
       if (content) {
-        renderHTML(content, DOMNode);
+        renderHTML(content, context);
       } else {
         console.error("Failed to load HTML content from", path);
       }
@@ -57,7 +20,7 @@ export function loadHTMLAndCSS(path, DOMNode) {
     });
 }
 
-function renderHTML(content, DOMNode) {
+function renderHTML(content, context) {
   // Create a DocumentFragment
   const fragment = document.createDocumentFragment();
   const tempContainer = document.createElement("div");
@@ -66,9 +29,9 @@ function renderHTML(content, DOMNode) {
   // Extract and apply CSS
   const styleTag = tempContainer.querySelector("style");
   if (styleTag) {
-    DOMNode.styleElement = document.createElement("style");
-    DOMNode.styleElement.innerHTML = styleTag.innerHTML;
-    document.head.appendChild(DOMNode.styleElement);
+    context.styleElement = document.createElement("style");
+    context.styleElement.innerHTML = styleTag.innerHTML;
+    document.head.appendChild(context.styleElement);
     styleTag.remove(); // Remove style tag from fragment
   }
 
@@ -81,5 +44,70 @@ function renderHTML(content, DOMNode) {
   }
 
   // Append the fragment to the target DOMNode
-  DOMNode.appendChild(fragment);
+  context.appendChild(fragment);
+}
+
+/**
+ * Binds a form to a private state object inside a custom element.
+ *
+ * @param {HTMLFormElement} form - The form to bind.
+ * @param {Object} stateObject - The private state object
+ */
+export function setFormBinding(form, stateObject) {
+  // Load all the form elements into the state object
+  Array.from(form.elements).forEach((element) => {
+    if (element.name) {
+      stateObject[element.name] = element.value;
+    }
+  });
+
+  // Listen for changes on form elements
+  Array.from(form.elements).forEach((element) => {
+    if (element.name) {
+      element.addEventListener("change", (event) => {
+        stateObject[element.name] = element.value;
+      });
+    }
+  });
+
+  // Create a proxy to update form elements when the object changes
+  return new Proxy(stateObject, {
+    set(target, property, value) {
+      target[property] = value;
+      if (form.elements[property]) {
+        form.elements[property].value = value;
+      }
+      return true;
+    },
+  });
+}
+
+/**
+ * Sets a cookie in the browser.
+ * 
+ * @param {string} name - The name of the cookie.
+ * @param {string} value - The value of the cookie.
+ * @param {number} [days=7] - The number of days until the cookie expires (default is 7 days).
+ */
+export function setCookie(name, value, days = 7) {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/`;
+}
+
+/**
+ * Retrieves a cookie value from the browser.
+ * 
+ * @param {string} name - The name of the cookie to retrieve.
+ * @returns {string|null} - The value of the cookie if found, otherwise null.
+ */
+export function getCookie(name) {
+  const cookies = document.cookie.split("; ");
+  for (const cookie of cookies) {
+    const [key, value] = cookie.split("=");
+    if (key === encodeURIComponent(name)) {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
 }

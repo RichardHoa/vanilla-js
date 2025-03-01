@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      h1 {
+        text-align: center;
+        color: var(--primaryColor);
+        margin-top: 30px;
+      }
+
+      form {
+        background: var(--secondaryColor);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 30px auto; /* Centers horizontally */
+        width: 50%;
+      }
+
+      label {
+        font-weight: bold;
+        color: var(--highlight);
+      }
+
+      input {
+        padding: 10px;
+        border: 1px solid var(--highlight);
+        border-radius: 5px;
+        background: var(--disabled);
+        color: inherit;
+      }
+
+      input:focus {
+        outline: 2px solid var(--primaryColor);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Login to access confidential information</h1>
+    <form>
+      <label for="email">Your email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        value="test@gmail.com"
+        autofocus
+        required
+      />
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        value="testPassword"
+        required
+      />
+      <submit-button>Login</submit-button>
+    </form>
+  </body>
+</html>

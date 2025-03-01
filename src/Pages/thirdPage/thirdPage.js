@@ -4,6 +4,21 @@ import { loadHTMLAndCSS } from "../../Services/helperFunctions";
 export default class ThirdPage extends HTMLElement {
   constructor() {
     super();
+
+    // const Store = {
+    //   accessToken: null,
+    // };
+
+    // this.innerStore = new Proxy(Store, {
+    //   set(target, key, value) {
+    //     target[key] = value;
+    //     // Add new event based on the key name
+    //     console.log("The key is: " + key);
+    //     console.log("New event activated: " + `${key}-update`);
+    //     window.dispatchEvent(new Event(`${key}-update`));
+    //     return true;
+    //   },
+    // });
   }
 
   connectedCallback() {
@@ -14,6 +29,9 @@ export default class ThirdPage extends HTMLElement {
     // Fetch the content of the third page
     API.fetchThirdPage().then((data) => {
       app.store.data = data;
+      // const accessToken = import.meta.env.VITE_TEST_INFORMATION;
+      // this.innerStore.accessToken = accessToken;
+      // console.log(this.innerStore);
     });
 
     loadHTMLAndCSS("/src/Pages/thirdPage/thirdPage.html", this).then(() => {

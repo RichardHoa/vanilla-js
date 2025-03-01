@@ -1,3 +1,5 @@
+import { handleProtectedRoutes } from "../Pages/ProtectedRoute/protectedRoute";
+
 const Router = {
   isFirstInit: false,
   init() {
@@ -10,6 +12,12 @@ const Router = {
 
     // Set the firstInit to true
     this.isFirstInit = true;
+
+    window.addEventListener("accessToken-update", () => {
+      console.log("access token is being triggered");
+      location.reload();
+      Router.go(location.pathname, false);
+    });
   },
 
   go(route, addToHistory = true) {
@@ -84,6 +92,12 @@ const routes = {
   "/third": {
     init: () => {
       const pageElement = document.createElement("third-page");
+      return { navElement: null, pageElement: pageElement };
+    },
+  },
+  "/fourth": {
+    init: () => {
+      const pageElement = handleProtectedRoutes("/fourth");
       return { navElement: null, pageElement: pageElement };
     },
   },
