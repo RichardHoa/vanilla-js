@@ -8,6 +8,14 @@
   color: light-dark(black, white);
 }
 
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 * {
   margin: 0;
   padding: 0;

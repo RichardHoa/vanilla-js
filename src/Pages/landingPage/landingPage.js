@@ -18,3 +18,4 @@ export default class LandingPage extends HTMLElement {
 }
 
 customElements.define("landing-page", LandingPage);
+
