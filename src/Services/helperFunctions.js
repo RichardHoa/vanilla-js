@@ -6,7 +6,7 @@
 export function loadHTMLAndCSS(path, context) {
   // { cache: "force-cache" }
   // We turn off cache control to see the changes in html pages
-  return fetch(path)
+  return fetch(path, { cache: "force-cache" })
     .then((response) => response.text())
     .then((content) => {
       if (content) {
@@ -84,7 +84,7 @@ export function setFormBinding(form, stateObject) {
 
 /**
  * Sets a cookie in the browser.
- * 
+ *
  * @param {string} name - The name of the cookie.
  * @param {string} value - The value of the cookie.
  * @param {number} [days=7] - The number of days until the cookie expires (default is 7 days).
@@ -92,12 +92,14 @@ export function setFormBinding(form, stateObject) {
 export function setCookie(name, value, days = 7) {
   const expires = new Date();
   expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/`;
+  document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(
+    value
+  )}; expires=${expires.toUTCString()}; path=/`;
 }
 
 /**
  * Retrieves a cookie value from the browser.
- * 
+ *
  * @param {string} name - The name of the cookie to retrieve.
  * @returns {string|null} - The value of the cookie if found, otherwise null.
  */
