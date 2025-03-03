@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^6.1.0"
+    "fast-glob": "^3.3.3",
+    "vite": "^6.1.0",
+    "vite-plugin-static-copy": "^2.3.0"
   }
 }
