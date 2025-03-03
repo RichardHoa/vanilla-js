@@ -1,6 +1,5 @@
 import Router from "./Router/router.js";
 import proxiedStore from "./Store/store.js";
-import "./style.css";
 
 // Must import for the web component to work
 import HomeNavBar from "./Components/NavBar/HomeNavBar.js";
