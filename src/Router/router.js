@@ -26,7 +26,6 @@ const Router = {
   },
 
   go(route, addToHistory = true, previousRoute = "") {
-    
     if (!route) {
       console.log("there is no route: ", route);
       return;
@@ -77,7 +76,7 @@ const Router = {
       pageElement = routeObj.pageElement;
       // If there is custom nav, use it
       if (routeObj.navElement) {
-        navElement = null;
+        console.log("[Router] Using custom nav:", routeObj.navElement);
         navElement = routeObj.navElement.cloneNode(true);
       }
     }
