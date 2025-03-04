@@ -6,7 +6,7 @@
 export function loadHTMLAndCSS(path, context) {
   // { cache: "force-cache" }
   // We turn off cache control to see the changes in html pages
-  return fetch(path)
+  return fetch(path, { cache: "force-cache" })
     .then((response) => response.text())
     .then((content) => {
       if (content) {
