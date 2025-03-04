@@ -28,6 +28,8 @@ export default class SubmitButton extends HTMLElement {
         this.innerHTML = "";
         this.appendChild(this.button);
 
+  
+
         // Add click event to disable the button for 3 seconds
         this.button.addEventListener("click", () => {
           const form = this.closest("form");
