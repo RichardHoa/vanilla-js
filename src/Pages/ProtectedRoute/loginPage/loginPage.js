@@ -45,7 +45,7 @@ export default class LoginPage extends HTMLElement {
       }
 
       console.log("Form submitted", this.#user);
-      location.reload();
+      app.router.goBack();
     });
   }
 

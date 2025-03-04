@@ -2,13 +2,6 @@ import Router from "./Router/router.js";
 import proxiedStore from "./Store/store.js";
 
 // Must import for the web component to work
-// import HomeNavBar from "./Components/homeNavBar/homeNavBar.js";
-// import SecondNavBar from "./Components/secondNavBar/secondNavbar.js";
-// import LandingPage from "./Pages/landingPage/landingPage.js";
-// import ThirdPage from "./Pages/thirdPage/thirdPage.js";
-// import LoginPage from "./Pages/ProtectedRoute/loginPage/loginpage.js";
-// import FourthPage from "./Pages/ProtectedRoute/fourthPage/fourthPage.js";
-import { handleProtectedRoutes } from "./Pages/ProtectedRoute/protectedRoute.js";
 import HELPER from "./Services/helperFunctions.js";
 import API from "./Services/API/api.js";
 import Observer from "./Observer/observer.js";

@@ -32,11 +32,11 @@ function lazyLoadElement(entry, observer) {
     let importPath = "";
 
     if (protectedRoutes.includes(camelCaseName)) {
-      importPath = `src/Pages/ProtectedRoute/${camelCaseName}/${camelCaseName}.js`;
+      importPath = `/src/Pages/ProtectedRoute/${camelCaseName}/${camelCaseName}.js`;
     } else if (tagName.endsWith("-page")) {
-      importPath = `src/Pages/${camelCaseName}/${camelCaseName}.js`;
+      importPath = `/src/Pages/${camelCaseName}/${camelCaseName}.js`;
     } else {
-      importPath = `src/Components/${camelCaseName}/${camelCaseName}.js`;
+      importPath = `/src/Components/${camelCaseName}/${camelCaseName}.js`;
     }
 
     // console.log(`[LazyLoad] Attempting to load: ${importPath}`);

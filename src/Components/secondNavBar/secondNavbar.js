@@ -6,7 +6,7 @@ export default class SecondNavBar extends HTMLElement {
   }
 
   connectedCallback() {
-    loadHTMLAndCSS("/src/Components/NavBar/secondNavBar.html", this).then(
+    loadHTMLAndCSS("/src/Components/secondNavBar/secondNavBar.html", this).then(
       () => {
         this.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", (event) => {

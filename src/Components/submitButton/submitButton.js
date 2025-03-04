@@ -7,7 +7,7 @@ export default class SubmitButton extends HTMLElement {
   }
 
   connectedCallback() {
-    loadHTMLAndCSS("/src/Components/Button/submitButton.html", this).then(
+    loadHTMLAndCSS("/src/Components/submitButton/submitButton.html", this).then(
       () => {
         this.button = this.querySelector("button");
 

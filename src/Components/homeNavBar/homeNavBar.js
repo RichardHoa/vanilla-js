@@ -6,7 +6,7 @@ export default class HomeNavBar extends HTMLElement {
   }
 
   connectedCallback() {
-    loadHTMLAndCSS("/src/Components/NavBar/homeNavBar.html", this).then(() => {
+    loadHTMLAndCSS("/src/Components/homeNavBar/homeNavBar.html", this).then(() => {
       this.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (event) => {
           event.preventDefault();

@@ -1,4 +1,4 @@
-import { handleProtectedRoutes } from "../Pages/ProtectedRoute/protectedRoute";
+import { getCookie } from "../Services/helperFunctions";
 
 const Router = {
   isFirstInit: false,
@@ -19,10 +19,19 @@ const Router = {
       Router.go(location.pathname, false);
     });
   },
+  goBack() {
+    const previousRoute = history.state?.previousRoute || "/";
+    console.log("⏪ Going back to:", previousRoute);
+    this.go(previousRoute);
+  },
 
-  go(route, addToHistory = true) {
+  go(route, addToHistory = true, previousRoute = "") {
+    if (route == location.pathname && this.isFirstInit) {
+      // If user is going to the route they are in, do nothing
+      return;
+    }
+
     // Activate the observer again
-
     if (this.isFirstInit && window.app?.observer) {
       console.log("Activating observer again...");
       window.app.observer.observe(document.body, {
@@ -33,14 +42,21 @@ const Router = {
       console.warn("[Router] ⚠️ app or observer is not initialized yet.");
     }
 
-    // If user is going to the route they are in, do nothing
-    if (route == location.pathname && this.isFirstInit) {
-      return;
+    if (route.startsWith("/secure/")) {
+      const cookie = getCookie("access-token");
+      console.log("cookie: ", cookie);
+      if (!cookie) {
+        return this.go("/login", true, route);
+      }
     }
 
     // Push the state to history so user can use the back button
     if (addToHistory) {
-      history.pushState({ route }, null, route);
+      history.pushState(
+        { destination: route, previousRoute: previousRoute },
+        null,
+        route
+      );
     }
 
     // Page element will contains the DOM
@@ -48,7 +64,7 @@ const Router = {
     // Default nav bar is home nav bar
     let navElement = document.createElement("home-nav-bar");
 
-    const routeConfig = routes[route];
+    const routeConfig = routes[route] || routes["/404"];
     if (routeConfig) {
       const routeObj = routeConfig.init();
       // Create the page element
@@ -57,12 +73,7 @@ const Router = {
       if (routeObj.navElement) {
         navElement = routeObj.navElement.cloneNode(true);
       }
-    } else {
-      // Default 404 page
-      const element = document.createElement("h1");
-      element.textContent = "404 Page Not Found";
-      pageElement = element;
-    }
+    } 
 
     // Clear the app and add the new page
     let app = document.getElementById("app");
@@ -107,10 +118,23 @@ const routes = {
       return { navElement: null, pageElement: pageElement };
     },
   },
-  "/fourth": {
+  "/secure/fourth": {
     init: () => {
-      const pageElement = handleProtectedRoutes("/fourth");
+      const pageElement = document.createElement("fourth-page");
       return { navElement: null, pageElement: pageElement };
+    },
+  },
+  "/login": {
+    init: () => {
+      const pageElement = document.createElement("login-page");
+      return { navElement: null, pageElement: pageElement };
+    },
+  },
+  "/404": {
+    init: () => {
+      const element = document.createElement("h1");
+      element.textContent = "404 Page Not Found";
+      return { pageElement: element };
     },
   },
 };
