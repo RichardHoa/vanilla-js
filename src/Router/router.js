@@ -66,19 +66,21 @@ const Router = {
 
     // Page element will contains the DOM
     let pageElement = null;
+    let navElement = null;
     // Default nav bar is home nav bar
-    let navElement = document.createElement("home-nav-bar");
+    if (route == "/second") {
+      navElement = document.createElement("second-nav-bar");
+    } else {
+      navElement = document.createElement("home-nav-bar");
+    }
+
+    console.log("nav element: ", navElement);
 
     const routeConfig = routes[route] || routes["/404"];
     if (routeConfig) {
       const routeObj = routeConfig.init();
       // Create the page element
       pageElement = routeObj.pageElement;
-      // If there is custom nav, use it
-      if (routeObj.navElement) {
-        console.log("[Router] Using custom nav:", routeObj.navElement);
-        navElement = routeObj.navElement.cloneNode(true);
-      }
     }
 
     // Clear the app and add the new page
@@ -113,9 +115,8 @@ const routes = {
   },
   "/second": {
     init: () => {
-      const navElement = document.createElement("second-nav-bar");
       const pageElement = document.createElement("second-page");
-      return { navElement: navElement, pageElement: pageElement };
+      return { navElement: null, pageElement: pageElement };
     },
   },
   "/third": {
