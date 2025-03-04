@@ -1,7 +1,6 @@
 import { getCookie } from "../Services/helperFunctions";
 
 const Router = {
-  isFirstInit: false,
   init() {
     // Event handler if user goes back
     window.addEventListener("popstate", (event) => {
@@ -11,7 +10,6 @@ const Router = {
     Router.go(location.pathname);
 
     // Set the firstInit to true
-    this.isFirstInit = true;
 
     window.addEventListener("accessToken-update", () => {
       console.log("access token is being triggered");
@@ -26,18 +24,15 @@ const Router = {
   },
 
   go(route, addToHistory = true, previousRoute = "") {
+    console.log("going to route: ", route);
+    console.log("location pathname: ", location.pathname);
     if (!route) {
       console.log("there is no route: ", route);
       return;
     }
 
-    if (route == location.pathname && this.isFirstInit) {
-      // If user is going to the route they are in, do nothing
-      return;
-    }
-
     // Activate the observer again
-    if (this.isFirstInit && window.app?.observer) {
+    if (window.app?.observer) {
       console.log("Activating observer again...");
       window.app.observer.observe(document.body, {
         childList: true,
@@ -58,7 +53,7 @@ const Router = {
     // Push the state to history so user can use the back button
     if (addToHistory) {
       history.pushState(
-        { destination: route, previousRoute: previousRoute },
+        { route: route, previousRoute: previousRoute },
         null,
         route
       );
@@ -69,9 +64,9 @@ const Router = {
     let navElement = null;
     // Default nav bar is home nav bar
     if (route == "/second") {
-      navElement = document.createElement("second-nav-bar");
-    } else {
       navElement = document.createElement("home-nav-bar");
+    } else {
+      navElement = document.createElement("second-nav-bar");
     }
 
     console.log("nav element: ", navElement);

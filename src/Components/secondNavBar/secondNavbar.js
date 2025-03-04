@@ -11,7 +11,12 @@ export default class SecondNavBar extends HTMLElement {
         this.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", (event) => {
             event.preventDefault();
-            app.router.go(link.getAttribute("href"));
+            const destinataion = link.getAttribute("href");
+            if (destinataion == location.pathname) {
+              console.log("same route");
+            } else {
+              app.router.go(link.getAttribute("href"));
+            }
           });
         });
     
