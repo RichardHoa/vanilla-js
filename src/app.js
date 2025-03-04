@@ -54,7 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
             console.log("second-page loaded and defined!");
           }
         });
-        observer.unobserve(entry.target); // Stop observing this one
+        observer.unobserve(entry.target); 
       }
     });
   });

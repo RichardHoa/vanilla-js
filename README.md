@@ -32,3 +32,7 @@ npm run dev
 ```
 This will launch the application with hot module replacement (HMR) enabled.
 
+
+### Project structure
+every page must start with bla bla.....
+lazy loading: observer API
