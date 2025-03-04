@@ -71,6 +71,7 @@ const Router = {
       pageElement = routeObj.pageElement;
       // If there is custom nav, use it
       if (routeObj.navElement) {
+        navElement = null;
         navElement = routeObj.navElement.cloneNode(true);
       }
     } 
