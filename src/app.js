@@ -2,23 +2,22 @@ import Router from "./Router/router.js";
 import proxiedStore from "./Store/store.js";
 
 // Must import for the web component to work
-import HomeNavBar from "./Components/NavBar/HomeNavBar.js";
-import SecondNavBar from "./Components/NavBar/SecondNavBar.js";
-import LandingPage from "./Pages/landingPage/landingPage.js";
-import ThirdPage from "./Pages/thirdPage/thirdPage.js";
-import LoginPage from "./Pages/ProtectedRoute/Login/login.js";
-import FourthPage from "./Pages/ProtectedRoute/fourthPage/fourthPage.js";
+// import HomeNavBar from "./Components/homeNavBar/homeNavBar.js";
+// import SecondNavBar from "./Components/secondNavBar/secondNavbar.js";
+// import LandingPage from "./Pages/landingPage/landingPage.js";
+// import ThirdPage from "./Pages/thirdPage/thirdPage.js";
+// import LoginPage from "./Pages/ProtectedRoute/loginPage/loginpage.js";
+// import FourthPage from "./Pages/ProtectedRoute/fourthPage/fourthPage.js";
 import { handleProtectedRoutes } from "./Pages/ProtectedRoute/protectedRoute.js";
-import {
-  loadHTMLAndCSS,
-  setCookie,
-  getCookie,
-} from "./Services/helperFunctions.js";
+import HELPER from "./Services/helperFunctions.js";
 import API from "./Services/API/api.js";
+import Observer from "./Observer/observer.js";
 
 window.app = {
   store: proxiedStore,
   router: Router,
+  // observer is set in observer.js
+  observer: null,
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -44,28 +43,4 @@ window.addEventListener("DOMContentLoaded", () => {
     document.getElementById("starter").scrollIntoView({ behavior: "smooth" });
   });
 
-  const secondObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        console.log("Lazy loading secondPage.js...");
-        import("./Pages/secondPage/secondPage.js").then((module) => {
-          if (!customElements.get("second-page")) {
-            customElements.define("second-page", module.default);
-            console.log("second-page loaded and defined!");
-          }
-        });
-        observer.unobserve(entry.target); 
-      }
-    });
-  });
-
-  // Watch for <second-page> appearing in the DOM dynamically
-  const mutationObserver = new MutationObserver(() => {
-    document
-      .querySelectorAll("second-page")
-      .forEach((el) => secondObserver.observe(el));
-  });
-
-  mutationObserver.observe(document.body, { childList: true, subtree: true });
-  
 });

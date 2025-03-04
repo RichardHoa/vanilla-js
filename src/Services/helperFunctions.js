@@ -113,3 +113,7 @@ export function getCookie(name) {
   }
   return null;
 }
+
+const HELPER = {};
+
+export default HELPER;

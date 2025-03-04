@@ -15,12 +15,24 @@ const Router = {
 
     window.addEventListener("accessToken-update", () => {
       console.log("access token is being triggered");
-      location.reload();
+      // location.reload();
       Router.go(location.pathname, false);
     });
   },
 
   go(route, addToHistory = true) {
+    // Activate the observer again
+
+    if (this.isFirstInit && window.app?.observer) {
+      console.log("Activating observer again...");
+      window.app.observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+    } else {
+      console.warn("[Router] ⚠️ app or observer is not initialized yet.");
+    }
+
     // If user is going to the route they are in, do nothing
     if (route == location.pathname && this.isFirstInit) {
       return;

@@ -7,17 +7,26 @@ export default class FourthPage extends HTMLElement {
   }
 
   connectedCallback() {
-    let privData = null;
-    API.fetchPrivateData().then((data) => {
-      privData = data;
-    });
+    this.render();
+  }
 
-    loadHTMLAndCSS(
-      "/src/Pages/ProtectedRoute/fourthPage/fourthPage.html",
-      this
-    ).then(() => {
-      this.querySelector("p").innerHTML = privData.data;
-    });
+  async render() {
+    try {
+      // Fetch API data
+      const privData = await API.fetchPrivateData();
+
+      // Load HTML and CSS
+      await loadHTMLAndCSS(
+        "/src/Pages/ProtectedRoute/fourthPage/fourthPage.html",
+        this
+      );
+
+      if (privData) {
+        this.querySelector("p").innerHTML = privData.data;
+      }
+    } catch (error) {
+      console.error("[FourthPage] ❌ Error loading data:", error);
+    }
   }
 
   disconnectedCallback() {

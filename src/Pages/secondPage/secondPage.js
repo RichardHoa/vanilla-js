@@ -20,28 +20,6 @@ export default class SecondPage extends HTMLElement {
   connectedCallback() {
     loadHTMLAndCSS("/src/Pages/secondPage/secondPage.html", this).then(() => {
       this.setFormBinding(this.querySelector("form"));
-
-      // Lazy loading
-      if ("customElements" in window) {
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              import("../../Components/Button/submitButton.js").then(
-                (module) => {
-                  if (!customElements.get("submit-button")) {
-                    customElements.define("submit-button", module.default);
-                  }
-                }
-              );
-              observer.disconnect(); // Stop observing after loading
-            }
-          });
-        });
-
-        this.querySelectorAll("submit-button").forEach((el) =>
-          observer.observe(el)
-        );
-      }
     });
   }
 
