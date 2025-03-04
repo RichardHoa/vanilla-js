@@ -3,6 +3,18 @@ function toCamelCase(tagName) {
   return tagName.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
 
+const moduleMap = import.meta.glob("/src/**/*.js"); // No `{ eager: true }` → Lazy load
+
+export function loadModule(importPath) {
+  const match = Object.keys(moduleMap).find((key) => key.endsWith(importPath));
+  if (match) {
+    return moduleMap[match](); // Vite now recognizes this as a dynamic chunk
+  } else {
+    console.error(`❌ Module not found: ${importPath}`);
+    return Promise.reject();
+  }
+}
+
 // Lazy load components & pages dynamically
 function lazyLoadElement(entry, observer) {
   if (entry.isIntersecting) {
@@ -20,31 +32,21 @@ function lazyLoadElement(entry, observer) {
     let importPath = "";
 
     if (protectedRoutes.includes(camelCaseName)) {
-      importPath = `../Pages/ProtectedRoute/${camelCaseName}/${camelCaseName}.js`;
+      importPath = `src/Pages/ProtectedRoute/${camelCaseName}/${camelCaseName}.js`;
     } else if (tagName.endsWith("-page")) {
-      importPath = `../Pages/${camelCaseName}/${camelCaseName}.js`;
+      importPath = `src/Pages/${camelCaseName}/${camelCaseName}.js`;
     } else {
-      importPath = `../Components/${camelCaseName}/${camelCaseName}.js`;
+      importPath = `src/Components/${camelCaseName}/${camelCaseName}.js`;
     }
 
     // console.log(`[LazyLoad] Attempting to load: ${importPath}`);
 
-    import(importPath)
-      .then((module) => {
-        if (!customElements.get(tagName)) {
-          customElements.define(tagName, module.default);
-          console
-            .log
-            // `[LazyLoad] ✅ Successfully loaded <${tagName}> from ${importPath}`
-            ();
-        }
-      })
-      .catch((err) => {
-        console.warn(
-          `[LazyLoad] ❌ Failed to load ${importPath}. Checking alternative paths...`,
-          err
-        );
-      });
+    loadModule(importPath).then((module) => {
+      if (!customElements.get(tagName)) {
+        customElements.define(tagName, module.default);
+        console.log(`✅ Loaded <${tagName}> from ${importPath}`);
+      }
+    });
 
     observer.unobserve(entry.target);
   }
