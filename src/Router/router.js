@@ -64,9 +64,9 @@ const Router = {
     let navElement = null;
     // Default nav bar is home nav bar
     if (route == "/second") {
-      navElement = document.createElement("home-nav-bar");
-    } else {
       navElement = document.createElement("two-nav-bar");
+    } else {
+      navElement = document.createElement("home-nav-bar");
     }
 
     console.log("nav element: ", navElement);
