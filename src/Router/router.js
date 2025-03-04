@@ -26,6 +26,12 @@ const Router = {
   },
 
   go(route, addToHistory = true, previousRoute = "") {
+    
+    if (!route) {
+      console.log("there is no route: ", route);
+      return;
+    }
+
     if (route == location.pathname && this.isFirstInit) {
       // If user is going to the route they are in, do nothing
       return;
@@ -74,7 +80,7 @@ const Router = {
         navElement = null;
         navElement = routeObj.navElement.cloneNode(true);
       }
-    } 
+    }
 
     // Clear the app and add the new page
     let app = document.getElementById("app");
