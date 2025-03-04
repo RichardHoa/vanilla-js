@@ -66,7 +66,7 @@ const Router = {
     if (route == "/second") {
       navElement = document.createElement("home-nav-bar");
     } else {
-      navElement = document.createElement("second-nav-bar");
+      navElement = document.createElement("two-nav-bar");
     }
 
     console.log("nav element: ", navElement);

@@ -61,7 +61,7 @@ const customElementsList = new Set([
   "submit-button",
   "landing-page",
   "home-nav-bar",
-  "second-nav-bar",
+  "two-nav-bar",
   "third-page",
   "login-page",
   "second-page",

@@ -1,12 +1,12 @@
 import { loadHTMLAndCSS } from "../../Services/helperFunctions";
 
-export default class SecondNavBar extends HTMLElement {
+export default class twoNavBar extends HTMLElement {
   constructor() {
     super();
   }
 
   connectedCallback() {
-    loadHTMLAndCSS("/src/Components/secondNavBar/secondNavBar.html", this).then(
+    loadHTMLAndCSS("/src/Components/twoNavBar/twoNavBar.html", this).then(
       () => {
         this.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", (event) => {
@@ -32,4 +32,4 @@ export default class SecondNavBar extends HTMLElement {
   }
 }
 
-customElements.define("second-nav-bar", SecondNavBar);
+customElements.define("two-nav-bar", twoNavBar);
