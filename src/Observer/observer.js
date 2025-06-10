@@ -69,28 +69,47 @@ const customElementsList = new Set([
   // Add more custom elements here
 ]);
 
-const observedElements = new Set();
+const observedElements = new WeakSet();
 
 // MutationObserver to watch for dynamically added custom elements
 
 document.addEventListener("DOMContentLoaded", () => {
-  const mutationObserver = new MutationObserver(() => {
-    customElementsList.forEach((tagName) => {
-      const element = document.querySelector(tagName);
-      if (element && !observedElements.has(element)) {
-        elementObserver.observe(element);
-        observedElements.add(element); // Mark as observed
-        console.log(`[LazyLoad] Observing custom element: <${tagName}>`);
+  if (!("customElements" in window)) return;
+
+  const mutationObserver = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (!(node instanceof HTMLElement)) continue;
+
+        // Check if this node is a custom tag we care about
+        const tagName = node.tagName.toLowerCase();
+        if (customElementsList.has(tagName) && !observedElements.has(node)) {
+          elementObserver.observe(node);
+          observedElements.add(node);
+          console.log(`[LazyLoad] Observing custom element: <${tagName}>`);
+        }
+
+        node.querySelectorAll?.("*").forEach((child) => {
+          const childTag = child.tagName.toLowerCase();
+          if (
+            customElementsList.has(childTag) &&
+            !observedElements.has(child)
+          ) {
+            elementObserver.observe(child);
+            observedElements.add(child);
+            console.log(
+              `[LazyLoad] Observing nested custom element: <${childTag}>`,
+            );
+          }
+        });
       }
-    });
+    }
   });
 
-  if ("customElements" in window) {
-    console.log(
-      "[LazyLoad] 🚀 MutationObserver started, watching for new custom elements..."
-    );
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
-  }
+  console.log(
+    "[LazyLoad] 🚀 MutationObserver started, watching for new custom elements...",
+  );
+  mutationObserver.observe(document.body, { childList: true, subtree: true });
 
   setTimeout(() => {
     console.log("[LazyLoad] ⏹️ MutationObserver disconnected after loading.");
