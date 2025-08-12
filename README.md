@@ -2,6 +2,8 @@
 
 This project is a Single Page Application (SPA) built entirely with vanilla JavaScript, without relying on any external libraries or frameworks—except for Vite.js, which is used to enhance development efficiency.
 
+You can view the website at this [link](https://bright-strudel-e71180.netlify.app)
+
 ## Objectives
 
 The primary goal of this project is to gain a deeper understanding of how SPA architecture works without the abstraction provided by frameworks like React or Vue. This includes implementing core SPA functionalities manually, such as routing, reactivity, and module management.
@@ -14,7 +16,7 @@ The primary goal of this project is to gain a deeper understanding of how SPA ar
 
 ## Warning
 
-- This website is a personal project exploring how to build a single-page application without using a dedicated SPA framework. It is deployed to Netlify to demonstrate its functionality. Please be aware that this project was not built with web accessibility in mind and is not suitable for a production environment. You can view the website at this [link](https://bright-strudel-e71180.netlify.app)
+- This website is a personal project exploring how to build a single-page application without using a dedicated SPA framework. It is deployed to Netlify to demonstrate its functionality. Please be aware that this project was not built with web accessibility in mind and is not suitable for a production environment.
 
 ## Getting Started
 
